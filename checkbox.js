@@ -3,7 +3,7 @@ import {MDCCheckbox} from '@material/checkbox';
 
 const style=``;
 
-class MDCCheckbox extends MaterialElement {
+class OneCheckbox extends MaterialElement {
   // Attributes inside this array will be check for boolean value true
   // and will be converted to mdc classes
   static get observedAttributes() {
@@ -22,7 +22,7 @@ class MDCCheckbox extends MaterialElement {
   }
 
   get observedAttributes() {
-    return MDCCheckbox.observedAttributes;
+    return OneCheckbox.observedAttributes;
   }
 
   buildDom_({classes}) {
@@ -43,5 +43,5 @@ class MDCCheckbox extends MaterialElement {
   }
 }
 
-customElements.define('mdc-checkbox', MDCCheckbox);
+customElements.define('one-checkbox', OneCheckbox);
 

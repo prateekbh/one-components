@@ -1,4 +1,5 @@
 import { MDCRipple } from "@material/ripple";
+import {setAttribute, getMaterialClass} from './utils';
 
 export default class MaterialElement extends HTMLElement{
 
@@ -18,16 +19,16 @@ export default class MaterialElement extends HTMLElement{
   }
 
   // Build the className
-  buildClassName_(props) {
+  buildClassName_() {
     this.classText_ = "mdc-" + this.componentName_;
     this.nativeAttributes_ = [];
     const attrs = this.getAttributeNames();
-    const observedAttributes = this.observedAttributes || [];
+    const observedAttributes = this.mdcProps || [];
     for (let attrKey in attrs) {
       if (attrs.hasOwnProperty(attrKey)) {
         const attr = attrs[attrKey];
         if (observedAttributes.includes(attr)) {
-          this.classText_ += " mdc-" + this.componentName_ + "--" + attr;
+          this.classText_ += ` ${getMaterialClass(this.componentName_, attr)}`;
         } else {
           this.nativeAttributes_.push(`${attr}='${this.getAttribute(attr)}'`);
         }
@@ -42,7 +43,7 @@ export default class MaterialElement extends HTMLElement{
       });
 
       node.addEventListener(event, (e) => {
-        this.dispatchEvent(new Event(event), e);
+        this.dispatchEvent(new Event('one' + event), e);
       });
     });
   }
@@ -55,6 +56,7 @@ export default class MaterialElement extends HTMLElement{
     this.buildClassName_();
     const classes = this.classText_;
     this.shadowRoot.innerHTML = this.buildDom_({classes});
+    this.componentRebuilt_ && this.componentRebuilt_();
   }
 
   connectedCallback() {
@@ -62,7 +64,22 @@ export default class MaterialElement extends HTMLElement{
   }
 
   attributeChangedCallback(attrName, oldVal, newVal){
-    console.log('changed', attrName);
-    this.renderDom_();
+    if (this.mdcProps.includes(attrName)) {
+      if (this.hasAttribute(attrName)) {
+        this.control &&
+            this.control.classList.add(`${getMaterialClass(this.componentName_, attrName)}`);
+      } else {
+        this.control &&
+            this.control.classList.remove(`${getMaterialClass(this.componentName_, attrName)}`);
+      }
+    } else {
+      this.control && setAttribute(this.control, {attrName, attrVal: newVal});
+    }
+  }
+
+  attachRipple(element) {
+    if (this.hasAttribute('ripple')) {
+      MDCRipple.attachTo(this.control);
+    }
   }
 }
