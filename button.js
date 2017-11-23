@@ -34,4 +34,3 @@ class MDCButton extends MaterialElement {
 }
 
 customElements.define('mdc-button', MDCButton);
-
