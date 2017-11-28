@@ -3,11 +3,11 @@ import {setAttribute, getMaterialClass} from './utils';
 
 export default class MaterialElement extends HTMLElement{
 
-  constructor() {
+  constructor(componentName_) {
     super();
 
     // This will again be used to add apt classname to the component
-    this.componentName_ = "";
+    this.componentName_ = componentName_;
 
     // The final class name given to the dom
     this.classText_ = "";
@@ -38,10 +38,6 @@ export default class MaterialElement extends HTMLElement{
 
   bypassDOMEvents_(node, eventsList) {
     eventsList.forEach((event) => {
-      this.addEventListener(event, (e) => {
-        e.preventDefault();
-      });
-
       node.addEventListener(event, (e) => {
         this.dispatchEvent(new Event('one' + event), e);
       });
@@ -57,10 +53,6 @@ export default class MaterialElement extends HTMLElement{
     const classes = this.classText_;
     this.shadowRoot.innerHTML = this.buildDom_({classes});
     this.componentRebuilt_ && this.componentRebuilt_();
-  }
-
-  connectedCallback() {
-    this.renderDom_();
   }
 
   attributeChangedCallback(attrName, oldVal, newVal){
@@ -81,5 +73,9 @@ export default class MaterialElement extends HTMLElement{
     if (this.hasAttribute('ripple')) {
       MDCRipple.attachTo(this.control);
     }
+  }
+
+  updateProperties_() {
+
   }
 }

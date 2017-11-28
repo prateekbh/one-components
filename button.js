@@ -14,12 +14,11 @@ class OneButton extends MaterialElement {
   }
 
   constructor(){
-    super();
-    this.componentName_ = 'button';
+    super('button');
   }
 
   connectedCallback(){
-    super.connectedCallback();
+    this.renderDom_();
     this.control = this.shadowRoot.querySelector('.mdc-button');
     super.attachRipple();
     this.bypassDOMEvents_(this.control, ['click']);
