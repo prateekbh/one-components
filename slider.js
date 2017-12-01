@@ -12,7 +12,7 @@ class OneSlider extends MaterialElement {
   }
 
   static get observedAttributes() {
-    return [...OneSlider.mdcProps_];
+    return [...OneSlider.mdcProps_, 'max', 'min', 'value', 'step', 'disabled'];
   }
 
   constructor(){
@@ -20,11 +20,18 @@ class OneSlider extends MaterialElement {
   }
 
   connectedCallback(){
+    /* build the DOM */
     this.renderDom_();
     this.control = this.shadowRoot.querySelector('.mdc-slider');
     this.MDComponent = new MDCSlider(this.control);
     this.bypassDOMEvents_(this.control, ['click']);
+    this.addListeners();
     this.updateProperties_();
+
+  }
+
+  get observedAttributes() {
+    return OneSlider.observedAttributes;
   }
 
   get mdcProps() {
@@ -32,8 +39,7 @@ class OneSlider extends MaterialElement {
   }
 
   set min(value) {
-    console.log('min', value);
-    this.properties.min = value;
+    this.properties.min = parseInt(value);
     this.updateProperties_('min');
   }
 
@@ -42,8 +48,7 @@ class OneSlider extends MaterialElement {
   }
 
   set max(value) {
-    console.log('max', value);
-    this.properties.max = value;
+    this.properties.max = parseInt(value);
     this.updateProperties_('max');
   }
 
@@ -52,7 +57,7 @@ class OneSlider extends MaterialElement {
   }
 
   set step(value) {
-    this.properties.step = value;
+    this.properties.step = parseInt(value);
     this.updateProperties_('step');
   }
 
@@ -60,13 +65,54 @@ class OneSlider extends MaterialElement {
     return this.MDComponent.step;
   }
 
+  set disabled(value) {
+    this.properties.disabled = this.hasAttribute('disabled');
+    this.updateProperties_('disabled');
+  }
+
+  get disabled() {
+    return this.MDComponent.disabled;
+  }
+
   set value(value) {
-    this.properties.value = value;
+    this.properties.value = parseInt(value);
     this.updateProperties_('value');
   }
 
   get value() {
     return this.MDComponent.value;
+  }
+
+  addListeners() {
+    this.MDComponent.listen('MDCSlider:input', (e) => {
+      this.dispatchEvent(new Event('mdcsliderinput'), e);
+    });
+
+    this.MDComponent.listen('MDCSlider:change', (e) => {
+      this.dispatchEvent(new Event('mdcsliderchange'), e);
+    });
+  }
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    switch(attrName){
+      case 'max':
+        this.max = newVal;
+      break;
+      case 'min':
+        this.min = newVal;
+      break;
+      case 'value':
+        this.value = newVal;
+      break;
+      case 'disabled':
+        this.disabled = newVal;
+      break;
+      case 'step':
+        this.step = newVal;
+      break;
+      default:
+        super.attributeChangedCallback(attrName, oldVal, newVal);
+    }
   }
 
   buildDom_({classes}) {

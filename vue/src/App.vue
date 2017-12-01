@@ -1,9 +1,23 @@
 <template>
   <div id="app">
-    <one-button ripple raised @oneclick="say('hi')">Shout hi</one-button>
-    <div><one-checkbox @onechange="say('changed')" checked></one-checkbox>Yo</div>
+    <one-button ripple raised @oneclick="say('How u doin?')">Shout hi</one-button>
+    <one-snackbar ref="snackbar"></one-snackbar>
 
-    <div><one-slider max="120" discrete></one-slider></div>
+    <div>
+      <one-form-field>
+        <one-checkbox @onechange="toggleSliderDisabled()" checked id="check1"></one-checkbox>
+        <label for="check1">Slider Enabled</label>
+      </one-form-field>
+    </div>
+
+    <div>
+      <one-slider :max="120" :value="sliderVal" step="10" discrete
+        @mdcsliderchange="updateValue()" ref="slider">
+      </one-slider>
+    </div>
+    <div>
+      Slider value: {{ sliderVal }}
+    </div>
   </div>
 </template>
 
@@ -15,8 +29,20 @@ export default {
       sliderMin: 0,
       sliderMax: 120,
       sliderVal: 20,
-      say: function(str) {
-        console.log(str);
+      say: function(text) {
+        this.$refs.snackbar.show({
+          message: text,
+				});
+      },
+      toggleSliderDisabled: function() {
+        if (this.$refs.slider.disabled) {
+          this.$refs.slider.removeAttribute('disabled');
+        } else {
+          this.$refs.slider.setAttribute('disabled', '');
+        }
+      },
+      updateValue: function() {
+        this.sliderVal = this.$refs.slider.value;
       }
     }
   }

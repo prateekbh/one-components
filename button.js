@@ -32,10 +32,6 @@ class OneButton extends MaterialElement {
     return `<style>${style}</style><button class='${classes}' ${this.nativeAttributes_.join(' ')}><slot></slot></button>`
   }
 
-  componentRebuilt_() {
-    this.control && super.attachRipple(this.control);
-  }
-
 }
 
 customElements.define('one-button', OneButton);

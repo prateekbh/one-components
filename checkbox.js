@@ -7,7 +7,7 @@ class OneCheckbox extends MaterialElement {
   // Attributes inside this array will be check for boolean value true
   // and will be converted to mdc classes
   static get observedAttributes() {
-    return ['raised', 'unelevated'];
+    return ['disabled', 'checked', 'indeterminate'];
   }
 
   constructor(){
@@ -21,8 +21,13 @@ class OneCheckbox extends MaterialElement {
     this.bypassDOMEvents_(this.control, ['click', 'change']);
   }
 
+  get observedAttributes() {
+    return OneCheckbox.observedAttributes;
+  }
+
   set checked(value) {
-    this.MDComponent.checked = value
+    this.properties.checked = this.hasAttribute('checked');
+    this.updateProperties_('checked');
   }
 
   get checked() {
@@ -30,15 +35,25 @@ class OneCheckbox extends MaterialElement {
   }
 
   set indeterminate(value) {
-    this.MDComponent.indeterminate = value
+    this.properties.indeterminate = this.hasAttribute('indeterminate');
+    this.updateProperties_('indeterminate');
   }
 
   get indeterminate() {
     return this.MDComponent.indeterminate;
   }
 
-  get observedAttributes() {
-    return OneCheckbox.observedAttributes;
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    switch(attrName){
+      case 'checked':
+        this.checked = newVal;
+      break;
+      case 'indeterminate':
+        this.indeterminate = newVal;
+      break;
+      default:
+        super.attributeChangedCallback(attrName, oldVal, newVal);
+    }
   }
 
   buildDom_({classes}) {

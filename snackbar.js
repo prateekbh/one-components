@@ -10,7 +10,7 @@ class OneSnackbar extends MaterialElement {
   }
 
   connectedCallback(){
-    super.connectedCallback();
+    this.renderDom_();
     this.control = this.shadowRoot.querySelector('.mdc-snackbar');
     this.MDComponent = new MDCSnackbar(this.control);
     this.updateProperties_();
@@ -27,6 +27,16 @@ class OneSnackbar extends MaterialElement {
 
   show(data) {
     this.MDComponent.show(data);
+  }
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    switch(attrName){
+      case 'dismissesOnAction':
+        this.dismissesOnAction = newVal;
+      break;
+      default:
+        super.attributeChangedCallback(attrName, oldVal, newVal);
+    }
   }
 
   buildDom_({classes}) {

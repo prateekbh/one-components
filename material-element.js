@@ -14,6 +14,8 @@ export default class MaterialElement extends HTMLElement{
 
     this.nativeAttributes_ = [];
 
+    this.properties = {};
+
     // Attach Shadow dom
     this.attachShadow({mode: 'open'});
   }
@@ -23,7 +25,7 @@ export default class MaterialElement extends HTMLElement{
     this.classText_ = "mdc-" + this.componentName_;
     this.nativeAttributes_ = [];
     const attrs = this.getAttributeNames();
-    const observedAttributes = this.mdcProps || [];
+    const observedAttributes = this.mdcProps;
     for (let attrKey in attrs) {
       if (attrs.hasOwnProperty(attrKey)) {
         const attr = attrs[attrKey];
@@ -52,7 +54,6 @@ export default class MaterialElement extends HTMLElement{
     this.buildClassName_();
     const classes = this.classText_;
     this.shadowRoot.innerHTML = this.buildDom_({classes});
-    this.componentRebuilt_ && this.componentRebuilt_();
   }
 
   attributeChangedCallback(attrName, oldVal, newVal){
@@ -75,7 +76,16 @@ export default class MaterialElement extends HTMLElement{
     }
   }
 
-  updateProperties_() {
+  get mdcProps() {
+    return [];
+  }
 
+  updateProperties_() {
+    const observedAttributes = this.mdcProps;
+    for(const prop in this.properties) {
+      if (!observedAttributes.includes(prop) && this.MDComponent) {
+        this.MDComponent[prop] = this.properties[prop];
+      }
+    }
   }
 }
