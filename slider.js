@@ -66,7 +66,7 @@ class OneSlider extends MaterialElement {
   }
 
   set disabled(value) {
-    this.properties.disabled = this.hasAttribute('disabled');
+    this.properties.disabled = this.hasAttribute('disabled') || value;
     this.updateProperties_('disabled');
   }
 

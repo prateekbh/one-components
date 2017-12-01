@@ -20,7 +20,7 @@ class OneLinearProgress extends MaterialElement {
   }
 
   connectedCallback(){
-    super.connectedCallback();
+    this.renderDom_();
     this.control = this.shadowRoot.querySelector('.mdc-linear-progress');
     this.MDComponent = new MDCLinearProgress(this.control);
     this.bypassDOMEvents_(this.control, ['click']);

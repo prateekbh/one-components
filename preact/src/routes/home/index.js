@@ -2,49 +2,70 @@ import { h, Component } from 'preact';
 import style from './style';
 
 export default class Home extends Component {
+
+	showSnack() {
+		this.setState({
+			count: this.state.count+1
+		});
+		this.snackbar.show({
+			message: `Hello Snack ${this.state.count}`,
+		});
+	}
+
+	toggleSliderDisabled() {
+		this.setState({
+			sliderDisabled: !this.state.sliderDisabled
+		});
+	}
+
+	setSliderVal() {
+		this.setState({
+			sliderVal: this.slider.value
+		});
+	}
+
 	constructor() {
 		super();
 		this.state = {
 			cboxChecked: true,
 			count: 0,
+			sliderDisabled: false,
+			sliderVal: 15
 		};
+		this.showSnack = this.showSnack.bind(this);
+		this.toggleSliderDisabled = this.toggleSliderDisabled.bind(this);
+		this.setSliderVal = this.setSliderVal.bind(this);
 	}
+
 	render() {
 		return (
 			<div class={style.home}>
-				<h1>Home</h1>
-				<one-button unelevated ripple ononeclick={()=>{
-					this.cb.checked = false;
-					this.setState({
-						count: this.state.count+1
-					});
-					this.cb2.show({
-						message: `Hello Snack ${this.state.count}`,
-						actionText: 'Undo',
-						actionHandler: function () {
-							console.log('my cool function');
-						}
-					});
-				}}>Button!</one-button>
-				<div>
-					<one-checkbox ref={cb=>{this.cb=cb;}} checked={this.state.cboxChecked}
-					ononechange={() => {
-						console.log('changed');
-					}}></one-checkbox> Check me!
+				<div class={style.container}>
+					<one-button unelevated ripple ononeclick={this.showSnack}>Show snack!</one-button>
 				</div>
 
-				<div>
-					<one-checkbox disabled></one-checkbox> Check me2!
+				<div class={style.container}>
+					<one-form-field>
+						<one-checkbox ononechange={this.toggleSliderDisabled} />
+						<label>Check me2!</label>
+					</one-form-field>
+
 				</div>
-				<p>This is the Home component.</p>
 
-				<one-linear-progress progress={0.1} reversed></one-linear-progress>
+				<div class={style.container}>
+					<one-slider min={10} max={120} value={this.state.sliderVal} discrete disabled={this.state.sliderDisabled}
+						ref={slider => {this.slider=slider;}}
+						onMDCSliderInput={this.setSliderVal} />
+				</div>
 
-				<one-slider min={0} max={100} value={15}></one-slider>
+				<div class={style.container}>
+					<one-snackbar ref={snackbar => {this.snackbar=snackbar;}} />
+				</div>
 
-				<one-slider min={0} max={100} value={15} discrete></one-slider>
 
-				<one-snackbar ref={cb2=>{this.cb2=cb2;}}></one-snackbar>
+				<div class={style.container}>
+					Slider value {this.state.sliderVal}
+				</div>
 			</div>
 		);
 	}
