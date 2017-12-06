@@ -19,6 +19,7 @@ class OneCheckbox extends MaterialElement {
     this.control = this.shadowRoot.querySelector('.mdc-checkbox');
     this.MDComponent = new MDCCheckbox(this.control);
     this.bypassDOMEvents_(this.control, ['click', 'change']);
+    this.updateProperties_();
   }
 
   get observedAttributes() {
@@ -26,7 +27,7 @@ class OneCheckbox extends MaterialElement {
   }
 
   set checked(value) {
-    this.properties.checked = this.hasAttribute('checked');
+    this.properties.checked = value;
     this.updateProperties_('checked');
   }
 
@@ -46,7 +47,7 @@ class OneCheckbox extends MaterialElement {
   attributeChangedCallback(attrName, oldVal, newVal) {
     switch(attrName){
       case 'checked':
-        this.checked = newVal;
+        this.checked = this.hasAttribute('checked');
       break;
       case 'indeterminate':
         this.indeterminate = newVal;

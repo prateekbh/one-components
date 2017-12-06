@@ -46,8 +46,8 @@ export default class Home extends Component {
 
 				<div class={style.container}>
 					<one-form-field>
-						<one-checkbox ononechange={this.toggleSliderDisabled} />
-						<label>Check me2!</label>
+						<one-checkbox ononechange={this.toggleSliderDisabled} checked={this.state.sliderDisabled} />
+						<label>Slider Disabled</label>
 					</one-form-field>
 
 				</div>
@@ -55,7 +55,8 @@ export default class Home extends Component {
 				<div class={style.container}>
 					<one-slider min={10} max={120} value={this.state.sliderVal} discrete disabled={this.state.sliderDisabled}
 						ref={slider => {this.slider=slider;}}
-						onMDCSliderInput={this.setSliderVal} />
+						onMDCSliderChange={this.setSliderVal}
+					/>
 				</div>
 
 				<div class={style.container}>

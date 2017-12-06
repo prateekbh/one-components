@@ -65,13 +65,15 @@ export default class MaterialElement extends HTMLElement{
         this.control &&
             this.control.classList.remove(`${getMaterialClass(this.componentName_, attrName)}`);
       }
+    } else if (attrName == 'ripple' && this.hasAttribute('ripple') && oldVal === null) {
+      this.attachRipple();
     } else {
       this.control && setAttribute(this.control, {attrName, attrVal: newVal});
     }
   }
 
-  attachRipple(element) {
-    if (this.hasAttribute('ripple')) {
+  attachRipple() {
+    if (this.hasAttribute('ripple') && this.control) {
       MDCRipple.attachTo(this.control);
     }
   }
