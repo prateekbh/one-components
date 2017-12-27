@@ -41,7 +41,7 @@ export default class MaterialElement extends HTMLElement{
   bypassDOMEvents_(node, eventsList) {
     eventsList.forEach((event) => {
       node.addEventListener(event, (e) => {
-        this.dispatchEvent(new Event('one' + event), e);
+        this.dispatchEvent(new Event('mdc' + event), e);
       });
     });
   }

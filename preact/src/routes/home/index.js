@@ -8,7 +8,7 @@ export default class Home extends Component {
 			count: this.state.count+1
 		});
 		this.snackbar.show({
-			message: `Hello Snack ${this.state.count}`,
+			message: `Hello Snack bar ${this.state.count}`
 		});
 	}
 
@@ -41,7 +41,7 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<div class={style.container}>
-					<one-button unelevated ripple ononeclick={this.showSnack}>Show snack!</one-button>
+					<one-button unelevated ripple disabled onclick={this.showSnack}>Show snack!</one-button>
 				</div>
 
 				<div class={style.container}>
@@ -66,6 +66,15 @@ export default class Home extends Component {
 
 				<div class={style.container}>
 					Slider value {this.state.sliderVal}
+				</div>
+
+        <div class={style.container}>
+          <one-form-field>
+					  <one-radio label="opt1"></one-radio>
+          </one-form-field>
+          <one-form-field>
+					  <one-radio label="opt1"></one-radio>
+          </one-form-field>
 				</div>
 			</div>
 		);
