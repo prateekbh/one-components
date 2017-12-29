@@ -11,9 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "dependencies": {
     "@material/radio": "^0.27.0"
-  },
-  "devDependencies": {}
+  }
 }
