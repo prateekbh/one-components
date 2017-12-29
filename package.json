@@ -14,11 +14,11 @@
     "@material/linear-progress": "^0.25.0",
     "@material/radio": "^0.25.0",
     "@material/slider": "^0.25.0",
-    "@material/snackbar": "^0.25.0",
-    "webpack": "^3.8.1"
+    "@material/snackbar": "^0.25.0"
   },
   "devDependencies": {
     "lerna": "^2.5.1",
-    "microbundle": "^0.2.4"
+    "microbundle": "^0.2.4",
+    "webpack": "^3.10.0"
   }
 }

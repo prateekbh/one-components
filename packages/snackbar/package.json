@@ -1,0 +1,18 @@
+{
+  "name": "@onecomponent/snackbar",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "version": "0.0.1",
+  "dependencies": {
+    "@material/snackbar": "^0.27.0"
+  }
+}
