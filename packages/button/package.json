@@ -1,5 +1,5 @@
 {
-  "name": "@onecomponents/button",
+  "name": "@onecomponent/button",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "version": "0.0.3"
+  "version": "0.0.4",
+  "dependencies": {
+    "@material/button": "^0.27.0"
+  }
 }
