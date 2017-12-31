@@ -1,4 +1,4 @@
-import MaterialElement from './material-element';
+import MaterialElement from '../../material-element';
 import { MDCSlider } from "@material/slider";
 
 

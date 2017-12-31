@@ -1,4 +1,4 @@
-import MaterialElement from './material-element';
+import MaterialElement from '../../material-element';
 import { MDCSnackbar } from "@material/snackbar";
 
 
