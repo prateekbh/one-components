@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "dependencies": {
     "@material/dialog": "^0.28.0"
   }
