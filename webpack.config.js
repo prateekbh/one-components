@@ -13,5 +13,18 @@ module.exports = {
   output: {
     path: path.resolve('./packages/'),
     filename: '[name]/one-[name].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
+      }
+    ]
   }
 }

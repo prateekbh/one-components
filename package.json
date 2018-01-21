@@ -17,6 +17,7 @@
     "@material/snackbar": "^0.25.0"
   },
   "devDependencies": {
+    "file-loader": "^1.1.6",
     "lerna": "^2.5.1",
     "microbundle": "^0.2.4",
     "webpack": "^3.10.0"
