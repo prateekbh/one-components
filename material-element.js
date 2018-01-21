@@ -20,7 +20,9 @@ export default class MaterialElement extends HTMLElement{
     this.attachShadow({mode: 'open'});
   }
 
-  // Build the className
+  /**
+   * Builds the class names based on the mdcProps of the element.
+   */
   buildClassName_() {
     this.classText_ = "mdc-" + this.componentName_;
     this.nativeAttributes_ = [];
@@ -38,6 +40,14 @@ export default class MaterialElement extends HTMLElement{
     }
   }
 
+  /**
+   * Dispatches the the events in the eventsList to the document with a namespace
+   * of `mdc-` so that user knows which event is coming from source and which is coming from
+   * shadow dom container.
+   * e.g. mdc-click.
+   * @param {Node} node
+   * @param {Array} eventsList
+   */
   bypassDOMEvents_(node, eventsList) {
     eventsList.forEach((event) => {
       node.addEventListener(event, (e) => {
@@ -50,12 +60,18 @@ export default class MaterialElement extends HTMLElement{
     return `<div class='${classes}'><slot></slot></div>`;
   }
 
+  /**
+   * Render the entire dom to the document.
+   */
   renderDom_() {
     this.buildClassName_();
     const classes = this.classText_;
     this.shadowRoot.innerHTML = this.buildDom_({classes});
   }
 
+  /**
+   * Called everytime when one of the observed attributes is changed.
+   */
   attributeChangedCallback(attrName, oldVal, newVal){
     if (this.mdcProps.includes(attrName)) {
       if (this.hasAttribute(attrName)) {
@@ -72,6 +88,9 @@ export default class MaterialElement extends HTMLElement{
     }
   }
 
+  /**
+   * Attaches ripple to `this.control`.
+   */
   attachRipple() {
     if (this.hasAttribute('ripple') && this.control) {
       MDCRipple.attachTo(this.control);
@@ -82,6 +101,9 @@ export default class MaterialElement extends HTMLElement{
     return [];
   }
 
+  /**
+   * Runs through the mdcProps and call the setters on the changed ones.
+   */
   updateProperties_() {
     const observedAttributes = this.mdcProps;
     for(const prop in this.properties) {

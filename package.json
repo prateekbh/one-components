@@ -8,18 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@material/button": "^0.23.0",
-    "@material/checkbox": "^0.23.0",
-    "@material/linear-progress": "^0.25.0",
-    "@material/radio": "^0.25.0",
-    "@material/slider": "^0.25.0",
-    "@material/snackbar": "^0.25.0"
-  },
   "devDependencies": {
-    "file-loader": "^1.1.6",
     "lerna": "^2.5.1",
-    "microbundle": "^0.2.4",
+    "raw-loader": "^0.5.1",
     "webpack": "^3.10.0"
   }
 }

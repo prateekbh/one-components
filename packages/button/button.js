@@ -1,5 +1,5 @@
 import MaterialElement from '../../material-element';
-import style from "@material/button/dist/mdc.button.css";
+import style from "@material/button/dist/mdc.button.min.css";
 
 class OneButton extends MaterialElement {
   // Attributes inside this array will be check for boolean value true
